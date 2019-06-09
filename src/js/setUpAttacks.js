@@ -1,5 +1,3 @@
-/* eslint-disable func-names */
-/* eslint-disable no-param-reassign */
 // eslint-disable-next-line import/prefer-default-export
 export function setUpAttacks(items, shield = true) {
   const result = [];
@@ -14,10 +12,9 @@ export function setUpAttacks(items, shield = true) {
   };
 
   if (shield) {
+    // eslint-disable-next-line func-names
     const healthAttackAll = function (attack) {
-      let coef = 0;
-      // eslint-disable-next-line no-plusplus
-      items.forEach((item) => { if (item.health > 0) { coef++; } });
+      const coef = items.filter(item => item.health > 0).length;
       if (coef > 0 && this.health > 0) { // cannot attack dead character
         const attackVal = attack / coef;
         const roundVal = Math.floor(attackVal);
