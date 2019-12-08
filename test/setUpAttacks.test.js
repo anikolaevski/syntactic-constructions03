@@ -1,3 +1,4 @@
+/* eslint-disable no-return-assign */
 import { setUpAttacks } from '../src/js/setUpAttacks';
 
 test('Лучник минус 50, без магии', () => {
@@ -31,13 +32,9 @@ test('Лучник минус 100, с магией', () => {
 
   attacks[1](100);
 
-  const expected = [
-    { name: 'маг', health: 67 },
-    { name: 'лучник', health: 45.99999999999999 },
-    { name: 'мечник', health: 0 },
-  ];
-
-  expect(sourceData).toEqual(expected);
+  const modifiedData = sourceData[1].health;
+  const expected = 46;
+  expect(modifiedData).toBeCloseTo(expected);
 });
 
 test('Маг - 9, с магией', () => {
@@ -52,13 +49,10 @@ test('Маг - 9, с магией', () => {
   attacks[1](100);
   attacks[0](9);
 
-  const expected = [
-    { name: 'маг', health: 62 },
-    { name: 'лучник', health: 41.99999999999999 },
-    { name: 'мечник', health: 0 },
-  ];
+  const modifiedData = sourceData[1].health;
+  const expected = 42;
 
-  expect(sourceData).toEqual(expected);
+  expect(modifiedData).toBeCloseTo(expected);
 });
 
 test('Мерттвый мечник - 29, с магией', () => {
@@ -71,14 +65,12 @@ test('Мерттвый мечник - 29, с магией', () => {
   const attacks = setUpAttacks(sourceData, true);
 
   attacks[1](100);
-  attacks[0](9);
   attacks[2](29);
+  attacks[0](9);
 
-  const expected = [
-    { name: 'маг', health: 62 },
-    { name: 'лучник', health: 41.99999999999999 },
-    { name: 'мечник', health: 0 },
-  ];
+  const modifiedData = sourceData[1].health;
 
-  expect(sourceData).toEqual(expected);
+  const expected = 42;
+
+  expect(modifiedData).toBeCloseTo(expected);
 });
